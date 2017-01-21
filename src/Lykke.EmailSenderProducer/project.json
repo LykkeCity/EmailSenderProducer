@@ -18,6 +18,18 @@
         "dnxcore50"
       ]
     }
+  },
 
+  "packOptions": {
+    "licenseUrl": "https://github.com/LykkeCity/CommonDotNetLibraries/blob/master/LICENSE",
+    "owners": [
+      "Lykke"
+    ],
+    "projectUrl": "https://github.com/LykkeCity/EmailSenderProducer",
+    "requireLicenseAcceptance": false,
+    "summary": "Service to send emails to azure service bus queue",
+    "tags": [
+      "Lykke EmailSenderProducer"
+    ]
   }
 }
