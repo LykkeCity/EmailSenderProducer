@@ -30,6 +30,7 @@ namespace Lykke.EmailSenderProducer
             try
             {
                 bool hasAttachments = emailMessage.Attachments != null && emailMessage.Attachments.Any();
+                int attachmentsCount = emailMessage.Attachments?.Length ?? 0;
 
                 var message = new Message(emailMessage.Body)
                 {
@@ -40,19 +41,23 @@ namespace Lykke.EmailSenderProducer
                         ["sender"] = !string.IsNullOrEmpty(sender) && sender.IsValidEmail() ? sender : string.Empty,
                         ["isHtml"] = emailMessage.IsHtml,
                         ["subject"] = emailMessage.Subject,
-                        ["hasAttachment"] = hasAttachments
+                        ["hasAttachment"] = hasAttachments,
+                        ["attachmentsCount"] = attachmentsCount
                     }
                 };
 
                 if (hasAttachments)
                 {
-                    message.ApplicationProperties["contentType"] = emailMessage.Attachments[0].ContentType;
-                    message.ApplicationProperties["fileName"] = emailMessage.Attachments[0].FileName;
-
-                    using (var ms = new MemoryStream())
+                    for (var i = 0; i < attachmentsCount; i++)
                     {
-                        emailMessage.Attachments[0].Stream.CopyTo(ms);
-                        message.ApplicationProperties["file"] = ms.ToArray();
+                        message.ApplicationProperties[$"contentType_{i}"] = emailMessage.Attachments[i].ContentType;
+                        message.ApplicationProperties[$"fileName_{i}"] = emailMessage.Attachments[i].FileName;
+
+                        using (var ms = new MemoryStream())
+                        {
+                            emailMessage.Attachments[i].Stream.CopyTo(ms);
+                            message.ApplicationProperties[$"file_{i}"] = ms.ToArray();
+                        }
                     }
                 }
 

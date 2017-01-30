@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EmailSenderProducer", "src\Lykke.EmailSenderProducer\Lykke.EmailSenderProducer.xproj", "{60640D7C-5F65-4006-B2F7-548BE8EAE635}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Lykke.EmailSenderProducer", "src\Lykke.EmailSenderProducer\Lykke.EmailSenderProducer.xproj", "{60640D7C-5F65-4006-B2F7-548BE8EAE635}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCD626F3-4F7E-41DC-8263-688D7E57BF0F}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
