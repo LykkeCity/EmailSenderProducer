@@ -48,6 +48,19 @@ namespace Lykke.EmailSenderProducer
 
                 if (hasAttachments)
                 {
+                    #region Backward compatibility with old sender brokers (with no multiple attachment support) - they will get only the first attachment
+
+                    message.ApplicationProperties["contentType"] = emailMessage.Attachments[0].ContentType;
+                    message.ApplicationProperties["fileName"] = emailMessage.Attachments[0].FileName;
+
+                    using (var ms = new MemoryStream())
+                    {
+                        emailMessage.Attachments[0].Stream.CopyTo(ms);
+                        message.ApplicationProperties["file"] = ms.ToArray();
+                    }
+
+                    #endregion
+
                     for (var i = 0; i < attachmentsCount; i++)
                     {
                         message.ApplicationProperties[$"contentType_{i}"] = emailMessage.Attachments[i].ContentType;
