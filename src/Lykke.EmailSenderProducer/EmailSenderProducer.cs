@@ -55,8 +55,9 @@ namespace Lykke.EmailSenderProducer
 
                     using (var ms = new MemoryStream())
                     {
-                        emailMessage.Attachments[0].Stream.CopyTo(ms);
+                        await emailMessage.Attachments[0].Stream.CopyToAsync(ms);
                         message.ApplicationProperties["file"] = ms.ToArray();
+                        emailMessage.Attachments[0].Stream.Seek(0, SeekOrigin.Begin);
                     }
 
                     #endregion
